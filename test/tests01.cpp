@@ -1,29 +1,33 @@
 #include <gtest/gtest.h>
 #include "../include/reconf_str.h"
 
-TEST(ReconfStringTest, BasicTest_0) {
+TEST(BasicTest, BasicTest_0) {
     EXPECT_EQ(reconfString("ababc"), "babac");
 }
 
-TEST(ReconfStringTest, BasicTest_1) {
+TEST(BasicTest, BasicTest_1) {
     EXPECT_EQ(reconfString("accccacacccbac"), "bccccbcbcccabc");
 }
 
-TEST(ReconfStringTest, EmptyStringTest) {
+TEST(BasicTest, EmptyStringTest) {
     EXPECT_EQ(reconfString(""), "");
 }
 
-TEST(ReconfStringTest, OneCharacterTest_0) {
+TEST(BasicTest, OneCharacterTest_0) {
     EXPECT_EQ(reconfString("b"), "a");
 }
 
-TEST(ReconfStringTest, OneCharacterTest_1) {
+TEST(BasicTest, OneCharacterTest_1) {
+    EXPECT_EQ(reconfString("a"), "b");
+}
+
+TEST(BasicTest, OneCharacterTest_2) {
     EXPECT_EQ(reconfString("c"), "c");
 }
 
 //=================InvalidCharacter_Tests=====================================================================================================
 
-TEST(ReconfStringTest, InvalidCharacter_0) {
+TEST(InvalidCharacterTests, OneInvalidCharacter_z) {
     std::string input = "abcz";
     try {
         reconfString(input);
@@ -34,7 +38,7 @@ TEST(ReconfStringTest, InvalidCharacter_0) {
     }
 }
 
-TEST(ReconfStringTest, InvalidCharacter_1) {
+TEST(InvalidCharacterTests, OneInvalidCharacter_A) {
     std::string input = "abcA";
     try {
         reconfString(input);
@@ -44,8 +48,119 @@ TEST(ReconfStringTest, InvalidCharacter_1) {
         EXPECT_EQ(mess, "the string contains an invalid character 'A'");
     }
 }
+
+TEST(InvalidCharacterTests, OneInvalidCharacter_dot) {
+    std::string input = "abc.";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '.'");
+    }
+}
+
+TEST(InvalidCharacterTests, OneInvalidCharacter_space) {
+    std::string input = "abc ";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character ' '");
+    }
+}
+
+TEST(InvalidCharacterTests, OneInvalidCharacter_ampersand) {
+    std::string input = "abc&";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '&'");
+    }
+}
+
+TEST(InvalidCharacterTests, OneInvalidCharacter_bracket) {
+    std::string input = "abc}";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '}'");
+    }
+}
+
+TEST(InvalidCharacterTests, OneInvalidCharacter_6) {
+    std::string input = "abc6";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '6'");
+    }
+}
+
+TEST(InvalidCharacterTests, InvalidCharacters1) {
+    std::string input = "abc}zsusvu;jvn";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '}'");
+    }
+}
+
+TEST(InvalidCharacterTests, InvalidCharacters2) {
+    std::string input = "abc!oivbd}}}{}3##917";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '!'");
+    }
+}
+
+TEST(InvalidCharacterTests, InvalidCharacters3) {
+    std::string input = "abc060982476";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '0'");
+    }
+}
+
+TEST(InvalidCharacterTests, OnlyInvalidCharacters) {
+    std::string input = "{72isvisv!poiuyt65}";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '{'");
+    }
+}
+
+TEST(InvalidCharacterTests, OnlyOneInvalidCharacter) {
+    std::string input = "-";
+    try {
+        reconfString(input);
+        FAIL() << "Expected std::runtime_error was not thrown.";
+    } catch (const std::runtime_error& e) {
+        std::string mess = e.what();
+        EXPECT_EQ(mess, "the string contains an invalid character '-'");
+    }
+}
+
 //==================================================================================================
-// TEST(ReconfStringTest, InvalidCharacter_2) {
+// TEST(InvalidCharacterTests, InvalidCharacter_rus) {
 //     std::string input = "abcф";
 //     try {
 //         reconfString(input);
@@ -56,7 +171,7 @@ TEST(ReconfStringTest, InvalidCharacter_1) {
 //     }
 // }
 
-// TEST(ReconfStringTest, InvalidCharacter_3) {
+// TEST(InvalidCharacterTests, InvalidCharacter_rus1) {
 //     std::string input = "фgds";
 //     try {
 //         reconfString(input);
@@ -67,7 +182,7 @@ TEST(ReconfStringTest, InvalidCharacter_1) {
 //     }
 // }
 
-// TEST(ReconfStringTest, InvalidCharacter_4) {
+// TEST(InvalidCharacterTests, InvalidCharacter_emoji) {
 //     std::string input = "abc😎";
 //     try {
 //         reconfString(input);

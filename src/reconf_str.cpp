@@ -3,7 +3,7 @@
 
 
 std::string reconfString(const std::string& str) {
-    std::string resultString = "";
+    std::string resultString {""};
     for (char c : str) {
         switch (c) {
         case 'a':

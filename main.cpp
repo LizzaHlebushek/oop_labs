@@ -6,7 +6,7 @@ int main() {
     std::cout << "Введите строку. Все 'a' будут заменены на 'b' и наоборот. Допустимые символы: a, b, c : ";
     std::getline(std::cin, input);
 
-    std::string reconf = reconfString(input);
+    std::string reconf {reconfString(input)};
     std::cout << "Реконфигурированная строка: " << reconf << std::endl;
 
     return 0;
