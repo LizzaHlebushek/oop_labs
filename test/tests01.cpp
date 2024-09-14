@@ -27,7 +27,7 @@ TEST(BasicTest, OneCharacterTest_2) {
 
 //=================InvalidCharacter_Tests=====================================================================================================
 
-TEST(InvalidCharacterTests, OneInvalidCharacter_z) {
+TEST(InvalidCharacterTests_Death, OneInvalidCharacter_z) {
     std::string input = "abcz";
     try {
         reconfString(input);
@@ -38,7 +38,7 @@ TEST(InvalidCharacterTests, OneInvalidCharacter_z) {
     }
 }
 
-TEST(InvalidCharacterTests, OneInvalidCharacter_A) {
+TEST(InvalidCharacterTests_Death, OneInvalidCharacter_A) {
     std::string input = "abcA";
     try {
         reconfString(input);
@@ -49,7 +49,7 @@ TEST(InvalidCharacterTests, OneInvalidCharacter_A) {
     }
 }
 
-TEST(InvalidCharacterTests, OneInvalidCharacter_dot) {
+TEST(InvalidCharacterTests_Death, OneInvalidCharacter_dot) {
     std::string input = "abc.";
     try {
         reconfString(input);
@@ -60,7 +60,7 @@ TEST(InvalidCharacterTests, OneInvalidCharacter_dot) {
     }
 }
 
-TEST(InvalidCharacterTests, OneInvalidCharacter_space) {
+TEST(InvalidCharacterTests_Death, OneInvalidCharacter_space) {
     std::string input = "abc ";
     try {
         reconfString(input);
@@ -71,7 +71,7 @@ TEST(InvalidCharacterTests, OneInvalidCharacter_space) {
     }
 }
 
-TEST(InvalidCharacterTests, OneInvalidCharacter_ampersand) {
+TEST(InvalidCharacterTests_Death, OneInvalidCharacter_ampersand) {
     std::string input = "abc&";
     try {
         reconfString(input);
@@ -82,7 +82,7 @@ TEST(InvalidCharacterTests, OneInvalidCharacter_ampersand) {
     }
 }
 
-TEST(InvalidCharacterTests, OneInvalidCharacter_bracket) {
+TEST(InvalidCharacterTests_Death, OneInvalidCharacter_bracket) {
     std::string input = "abc}";
     try {
         reconfString(input);
@@ -93,7 +93,7 @@ TEST(InvalidCharacterTests, OneInvalidCharacter_bracket) {
     }
 }
 
-TEST(InvalidCharacterTests, OneInvalidCharacter_6) {
+TEST(InvalidCharacterTests_Death, OneInvalidCharacter_6) {
     std::string input = "abc6";
     try {
         reconfString(input);
@@ -104,7 +104,7 @@ TEST(InvalidCharacterTests, OneInvalidCharacter_6) {
     }
 }
 
-TEST(InvalidCharacterTests, InvalidCharacters1) {
+TEST(InvalidCharacterTests_Death, InvalidCharacters1) {
     std::string input = "abc}zsusvu;jvn";
     try {
         reconfString(input);
@@ -115,7 +115,7 @@ TEST(InvalidCharacterTests, InvalidCharacters1) {
     }
 }
 
-TEST(InvalidCharacterTests, InvalidCharacters2) {
+TEST(InvalidCharacterTests_Death, InvalidCharacters2) {
     std::string input = "abc!oivbd}}}{}3##917";
     try {
         reconfString(input);
@@ -126,7 +126,7 @@ TEST(InvalidCharacterTests, InvalidCharacters2) {
     }
 }
 
-TEST(InvalidCharacterTests, InvalidCharacters3) {
+TEST(InvalidCharacterTests_Death, InvalidCharacters3) {
     std::string input = "abc060982476";
     try {
         reconfString(input);
@@ -137,7 +137,7 @@ TEST(InvalidCharacterTests, InvalidCharacters3) {
     }
 }
 
-TEST(InvalidCharacterTests, OnlyInvalidCharacters) {
+TEST(InvalidCharacterTests_Death, OnlyInvalidCharacters) {
     std::string input = "{72isvisv!poiuyt65}";
     try {
         reconfString(input);
@@ -148,7 +148,7 @@ TEST(InvalidCharacterTests, OnlyInvalidCharacters) {
     }
 }
 
-TEST(InvalidCharacterTests, OnlyOneInvalidCharacter) {
+TEST(InvalidCharacterTests_Death, OnlyOneInvalidCharacter) {
     std::string input = "-";
     try {
         reconfString(input);
