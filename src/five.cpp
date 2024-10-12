@@ -52,7 +52,12 @@ Five::Five(const std::initializer_list<unsigned char> &t)
     }
     _array = new unsigned char[_size];
     for (size_t i = number_of_nulls; i < t.size(); ++i) {
-        if (t_array[i] > 4 || t_array[i] < 0) throw std::invalid_argument("invalid value");
+        if (t_array[i] > 4 || t_array[i] < 0) {
+            _size = 0;
+            delete[] _array;
+            _array = nullptr;
+            throw std::invalid_argument("invalid value");
+        }
         _array[_size - 1 - i + number_of_nulls] = t_array[i];
     }
 }
@@ -73,7 +78,12 @@ Five::Five(const std::string &t) {
     }
     _array = new unsigned char[_size];
     for (size_t i = number_of_nulls; i < t.size(); ++i) {
-        if (t[i] < '0' || t[i] > '4') throw std::invalid_argument("invalid symbol");
+        if (t[i] > '4' || t[i] < '0') {
+            _size = 0;
+            delete[] _array;
+            _array = nullptr;
+            throw std::invalid_argument("invalid value");
+        }
         _array[_size - 1 - i + number_of_nulls] = t[i] - '0';
     }
 }
@@ -202,6 +212,8 @@ void Five::add(const Five& other) {
         }
         new_result_array[sum_size] = sum;
         delete[] _array;
+        delete[] result_array;
+        result_array = nullptr;
         _array = new_result_array;
         _size = sum_size + 1;
         return;
@@ -232,8 +244,10 @@ Five Five::subtract(const Five& other) const {
             number_of_nulls++;
         }
         if (number_of_nulls == _size) {
-            unsigned char * new_result_array = new unsigned char[1];
             result._size = 1;
+            unsigned char * new_result_array = new unsigned char[_size];
+            delete[] result._array;
+            result._array = new_result_array;
             new_result_array[0] = 0;
             return result;
         }
@@ -273,6 +287,8 @@ void Five::remove(const Five& other){
             new_result_array[0] = 0;
             _size = 1;
             delete[] _array;
+            delete[] result_array;
+            result_array = nullptr;
             _array = new_result_array;
             return;
         }
@@ -281,6 +297,8 @@ void Five::remove(const Five& other){
             new_result_array[i] = result_array[i];
         }
         delete[] _array;
+        delete[] result_array;
+        result_array = nullptr;
         _array = new_result_array;
         _size = _size - number_of_nulls;
         return;
